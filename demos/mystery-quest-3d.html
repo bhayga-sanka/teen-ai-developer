@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="si">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08111f">
+<title>MYSTERY QUEST 3D – The Missing Robot | Week 04</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px;background:#08111f;color:#f0f6ff;font-family:system-ui,"Noto Sans Sinhala",sans-serif}main{max-width:540px;width:100%;padding:25px;border:1px solid #35506d;border-radius:18px;background:#101d30;line-height:1.7}.muted{color:#a8bbd0;font-size:14px}.bar{height:7px;background:#263e59;border-radius:99px;overflow:hidden;margin-top:18px}.bar span{display:block;width:35%;height:100%;background:#74e4ee;animation:load 1s ease-in-out infinite alternate}@keyframes load{to{width:90%}}
+</style>
+</head>
+<body>
+<main><h2>🔎 MYSTERY QUEST 3D සූදානම් වෙමින් පවතී…</h2><p class="muted">පාසලේ 3D පරිසරය පූරණය කරනවා. කරුණාකර පිටුව වසා නොදමන්න.</p><div class="bar"><span></span></div></main>
+<script>
+(async()=>{
+ try{
+  if(!("DecompressionStream" in window)) throw new Error("මෙම Browser එක compressed demo support නොකරයි. Chrome හෝ Edge නවතම version භාවිත කරන්න.");
+  const files=Array.from({length:6},(_,i)=>`./mystery-quest-3d-payload/part-${String(i+1).padStart(2,"0")}.txt`);
+  const responses=await Promise.all(files.map(url=>fetch(url)));
+  if(responses.some(r=>!r.ok)) throw new Error("Mystery Quest payload files could not be loaded");
+  const encoded=(await Promise.all(responses.map(r=>r.text()))).join("").trim();
+  if(!/^[A-Za-z0-9+/=]+$/.test(encoded)||encoded.length%4!==0) throw new Error("Invalid Mystery Quest payload");
+  const binary=atob(encoded);
+  const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+  const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+  const html=await new Response(stream).text();
+  if(!html.includes("MYSTERY QUEST")||!html.includes("WebGLRenderer")||!html.includes("allClues")) throw new Error("Mystery Quest validation failed");
+  document.open();document.write(html);document.close();
+ }catch(error){
+  document.body.innerHTML="<main><h2>Demo එක පූරණය කළ නොහැකි විය</h2><p>Chrome හෝ Edge නවතම Browser එකකින් නැවත උත්සාහ කරන්න. Internet සම්බන්ධතාවයත් පරීක්ෂා කරන්න.</p></main>";
+  console.error(error);
+ }
+})();
+</script>
+</body>
+</html>
