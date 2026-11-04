@@ -4,32 +4,199 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#08111f">
-<title>MYSTERY QUEST 3D – The Missing Robot | Week 04</title>
+<title>MYSTERY QUEST – The Missing Robot | Week 04</title>
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px;background:#08111f;color:#f0f6ff;font-family:system-ui,"Noto Sans Sinhala",sans-serif}main{max-width:540px;width:100%;padding:25px;border:1px solid #35506d;border-radius:18px;background:#101d30;line-height:1.7}.muted{color:#a8bbd0;font-size:14px}.bar{height:7px;background:#263e59;border-radius:99px;overflow:hidden;margin-top:18px}.bar span{display:block;width:35%;height:100%;background:#74e4ee;animation:load 1s ease-in-out infinite alternate}@keyframes load{to{width:90%}}
+:root{--bg:#07101d;--panel:#101d30;--panel2:#172943;--line:#35506d;--ink:#f0f6ff;--muted:#a8bbd0;--cyan:#74e4ee;--gold:#ffd47d;--green:#83e5ad;--red:#ff8898;--violet:#bba5ff;--shadow:0 18px 60px #0008}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:system-ui,"Noto Sans Sinhala","Segoe UI",sans-serif}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}#app{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%,#173150 0%,#08111f 70%)}#scene{position:absolute;inset:0}canvas{display:block;width:100%;height:100%;touch-action:none;outline:0}#ui{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between}.topbar{pointer-events:auto;display:flex;align-items:center;gap:10px;justify-content:space-between;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;background:linear-gradient(#06101ddd,#06101d99 68%,transparent);flex-wrap:wrap}.brand{display:flex;align-items:center;gap:10px;min-width:0}.logo{width:39px;height:39px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#1d657a,#43366f);border:1px solid #6dc7d8;font-size:22px;flex:none}.brand h1{margin:0;font-size:14px;letter-spacing:1.1px}.brand small{display:block;color:#a8bdd4;font-size:10px;letter-spacing:.8px;margin-top:2px}.stats{display:flex;gap:7px;align-items:center}.stat{border:1px solid #42617d;background:#0a182bd9;border-radius:11px;padding:7px 10px;font-size:11px;color:#b9cbe0;white-space:nowrap}.stat b{color:#fff;font-size:13px;margin-left:4px}.bottom{pointer-events:auto;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,#06101ddf 30%,#06101df5);display:flex;align-items:end;justify-content:space-between;gap:10px}.where{min-width:0;display:grid;gap:3px}.where .eyebrow{font-size:9px;color:var(--cyan);font-weight:850;letter-spacing:1.6px}.where strong{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.where small{font-size:10px;color:#a9bdd3}.actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.btn{border:1px solid #54708d;border-radius:11px;background:#18314c;color:#eef7ff;padding:10px 13px;font-weight:800;font-size:12px;box-shadow:0 5px 18px #0004}.btn:hover{filter:brightness(1.15)}.btn.primary{background:linear-gradient(135deg,#087e91,#245b94);border-color:#67d5e5}.btn.help{background:linear-gradient(135deg,#574294,#254c79);border-color:#aa98e8}.btn.good{background:linear-gradient(135deg,#176b51,#1b805f);border-color:#6dd8a4}.btn:disabled{opacity:.45;cursor:not-allowed}.panel{pointer-events:auto;position:absolute;right:14px;top:76px;width:min(320px,calc(100vw - 28px));max-height:calc(100% - 165px);overflow:auto;background:#0d1b2df2;border:1px solid #49617b;border-radius:16px;padding:14px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}.panel.hidden,.modal.hidden,.start.hidden,.toast.hidden{display:none}.panelhead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}.panelhead h2{font-size:15px;margin:0}.xbtn{border:1px solid #536b82;background:#1a304b;color:white;border-radius:8px;padding:5px 9px}.evidence{display:grid;gap:7px}.ev{border:1px solid #3b536e;background:#142842;border-radius:10px;padding:9px 10px;font-size:11px;line-height:1.55}.ev b{display:block;color:#aeeef3;font-size:10px;margin-bottom:2px}.empty{padding:18px 10px;text-align:center;border:1px dashed #51677c;color:#9eb3c9;border-radius:11px;font-size:12px}.progress{height:6px;border-radius:10px;background:#24384e;overflow:hidden;margin:8px 0 12px}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,#59d9dd,#8be7b2);transition:width .25s}.panelnote{font-size:10px;color:#9db1c9;line-height:1.5;margin-top:10px}.modal{pointer-events:auto;position:absolute;inset:0;display:grid;place-items:center;padding:18px;background:#020812a8;backdrop-filter:blur(7px)}.dialog{width:min(430px,100%);max-height:85vh;overflow:auto;border:1px solid #54718e;border-radius:19px;background:linear-gradient(155deg,#172b45,#0d1b2d);padding:20px;box-shadow:var(--shadow)}.dialog .symbol{font-size:30px}.dialog h2{margin:8px 0 7px;font-size:19px}.dialog p{margin:0;color:#c1d0e1;font-size:13px;line-height:1.75}.dialog .buttons{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:17px}.start{pointer-events:auto;position:absolute;inset:0;display:grid;place-items:center;padding:18px;background:linear-gradient(120deg,#06101dcc,#0b1830a8)}.startcard{width:min(430px,100%);padding:24px;border-radius:22px;border:1px solid #48627d;background:linear-gradient(150deg,#172c49,#0b192b);box-shadow:var(--shadow);text-align:center}.startcard .heroicon{font-size:54px}.startcard h2{margin:7px 0;font-size:24px;letter-spacing:1px}.startcard p{margin:0;color:#aec1d7;font-size:12px;line-height:1.7}.startcard .btn{margin-top:18px;min-width:190px;padding:13px 18px}.hintbubble{pointer-events:none;position:absolute;left:50%;top:82px;transform:translateX(-50%);max-width:min(440px,calc(100vw - 28px));border:1px solid #9b8bdc;background:#201d48ed;border-radius:12px;padding:9px 13px;text-align:center;color:#f2ecff;font-size:12px;line-height:1.55;box-shadow:0 8px 25px #0007}.hintbubble.hidden{display:none}.toast{pointer-events:none;position:absolute;left:50%;bottom:98px;transform:translateX(-50%);padding:9px 13px;border-radius:11px;border:1px solid #59758d;background:#0d2137ef;color:#e6f6ff;font-size:11px;box-shadow:var(--shadow);max-width:calc(100vw - 28px);text-align:center}.object-tip{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;border:1px solid #7edce5;background:#0b1b2de8;border-radius:20px;padding:5px 9px;font-size:10px;color:#e9fdff;display:none;white-space:nowrap}.object-tip.show{display:block}.key{display:inline-block;border:1px solid #5e7892;background:#203953;border-radius:5px;padding:1px 5px;font-size:10px;color:#d5eaff}.footerhint{font-size:9px;color:#8fa5bd;text-align:center;margin-top:4px}
+@media(max-width:650px){.topbar{padding-left:10px;padding-right:10px;align-items:flex-start}.brand h1{font-size:12px}.logo{width:34px;height:34px}.stat{padding:6px 8px;font-size:10px}.stat b{font-size:11px}.stats{gap:5px}.bottom{padding-left:10px;padding-right:10px;align-items:center}.where strong{font-size:13px}.where small{max-width:145px}.actions{gap:5px}.btn{padding:9px 10px;font-size:11px}.panel{top:88px;right:9px;width:min(300px,calc(100vw - 18px));max-height:calc(100% - 170px)}.hintbubble{top:94px}.toast{bottom:95px}.startcard{padding:21px 17px}}
+@media(max-width:390px){.stats .stat:nth-child(3){display:none}.where small{max-width:115px}.btn{padding:8px 9px}}
+
+.clue-panel{pointer-events:auto;position:absolute;right:14px;top:77px;bottom:105px;width:265px;max-height:calc(100% - 182px);overflow:auto;background:#0b192beF;border:1px solid #53708a;border-radius:15px;padding:12px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+.clue-title{font-size:12px;letter-spacing:1.5px;font-weight:900;color:#aeeef3;border-bottom:1px solid #34516c;padding:2px 2px 9px;margin-bottom:9px}
+.clue-list{display:grid;gap:8px}
+.clue-empty{padding:12px 8px;color:#91a8c0;font-size:11px;line-height:1.6;text-align:center;border:1px dashed #405a73;border-radius:10px}
+.clue-item{border:1px solid #42627c;background:#132941;border-radius:10px;padding:9px 10px;color:#f0f6ff;font-size:11px;line-height:1.65;animation:clueIn .24s ease-out}
+.clue-item b{display:block;color:#9ee8ee;font-size:10px;letter-spacing:.5px;margin-bottom:3px}
+.clue-item.pending{background:rgba(16,34,52,.72);border:1px dashed #39536b;color:#91a8c0;animation:none}
+.clue-item.pending b{color:#8ba5bb}
+@keyframes clueIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.mission-steps{text-align:left!important;margin:14px 0 0!important;line-height:1.85!important}
+.mission-steps b{color:#9debf0}
+canvas{cursor:grab}
+@media(max-width:650px){.clue-panel{right:8px;top:82px;bottom:104px;width:min(190px,48vw);padding:8px;max-height:calc(100% - 186px)}.clue-title{font-size:10px;padding-bottom:7px}.clue-item{font-size:10px;padding:7px 8px}.clue-empty{font-size:10px;padding:9px 5px}.bottom{padding-right:8px}.where{max-width:42vw}.actions{max-width:55vw}.btn{padding:8px 9px;font-size:10px}}
+@media(max-width:390px){.clue-panel{width:44vw;right:6px}.clue-item{font-size:9px}.where strong{font-size:12px}.actions{gap:4px}}
+
 </style>
 </head>
 <body>
-<main><h2>🔎 MYSTERY QUEST 3D සූදානම් වෙමින් පවතී…</h2><p class="muted">පාසලේ 3D පරිසරය පූරණය කරනවා. කරුණාකර පිටුව වසා නොදමන්න.</p><div class="bar"><span></span></div></main>
+<div id="app">
+ <div id="scene"><canvas id="world" aria-label="ත්‍රිමාණ පාසල් පරිසරය"></canvas></div>
+ <div id="ui">
+  <header class="topbar">
+   <div class="brand"><div class="logo">🔎</div><div><h1>MYSTERY QUEST</h1><small>THE MISSING ROBOT · WEEK 04</small></div></div>
+
+  </header>
+  <div class="hintbubble hidden" id="hintBubble"></div>
+  <div class="object-tip" id="objectTip">පරීක්ෂා කරන්න</div>
+  <footer class="bottom">
+   <div class="where"><span class="eyebrow" id="modeLabel">SCHOOL INVESTIGATION</span><strong id="placeName">පාසලේ පරිශ්‍රය</strong><small id="placeSub">කාමරයක දොර Click කරන්න</small></div>
+   <div class="actions">
+    <button class="btn help" id="hintBtn" disabled>💡 ඉඟිය</button>
+    <button class="btn" id="backBtn" disabled>↩ පාසලට ආපසු</button>
+   </div>
+  </footer>
+ </div>
+ <aside class="clue-panel" id="cluePanel" aria-label="හමුවූ Clues">
+  <div class="clue-title">🔎 CLUE LIST</div>
+  <div id="clueList" class="clue-list"><div class="clue-empty">Clue එකක් හමුවූ විට එය එයට නියමිත අංකයට මෙතැන පෙන්වයි.</div></div>
+ </aside>
+ <div class="start" id="startScreen"><div class="startcard"><div class="heroicon">🤖</div><div class="eyebrow" style="color:var(--cyan);font-size:10px;letter-spacing:2px;font-weight:900">MYSTERY QUEST</div><h2>ROBO-01 අතුරුදහන්!</h2><p class="mission-steps"><b>ඔබේ මෙහෙයුම</b><br>1. පාසලේ කාමරයක දොරක් Click කර ඇතුළු වෙන්න.<br>2. කාමරයේ ඇති වස්තු එකින් එක Click කර පරීක්ෂා කරන්න. හැම වස්තුවකම Clue නැහැ.<br>3. Clue එකක් හමුවුණොත් එය කලින් නියම කළ අංකයට අනුව දකුණු පැත්තේ Clue List එකේ පෙන්වනවා.<br>4. තවම සොයාගෙන නැති අංකවල Clues සොයන්න. සියලු Clues සසඳා Robot එකට මොකද වුණේ කියලා ඔබම තීරණය කරන්න.</p><button class="btn primary" id="startBtn">පරීක්ෂාව ආරම්භ කරන්න</button><div class="footerhint">තිරය Drag කරලා කාමරය වටා බලන්න · වස්තු Click කර පරීක්ෂා කරන්න</div></div></div>
+ <div class="toast hidden" id="toast"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
 <script>
-(async()=>{
- try{
-  if(!("DecompressionStream" in window)) throw new Error("මෙම Browser එක compressed demo support නොකරයි. Chrome හෝ Edge නවතම version භාවිත කරන්න.");
-  const files=Array.from({length:6},(_,i)=>`./mystery-quest-3d-payload/part-${String(i+1).padStart(2,"0")}.txt`);
-  const responses=await Promise.all(files.map(url=>fetch(url)));
-  if(responses.some(r=>!r.ok)) throw new Error("Mystery Quest payload files could not be loaded");
-  const encoded=(await Promise.all(responses.map(r=>r.text()))).join("").trim();
-  if(!/^[A-Za-z0-9+/=]+$/.test(encoded)||encoded.length%4!==0) throw new Error("Invalid Mystery Quest payload");
-  const binary=atob(encoded);
-  const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
-  const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
-  const html=await new Response(stream).text();
-  if(!html.includes("MYSTERY QUEST")||!html.includes("WebGLRenderer")||!html.includes("allClues")) throw new Error("Mystery Quest validation failed");
-  document.open();document.write(html);document.close();
- }catch(error){
-  document.body.innerHTML="<main><h2>Demo එක පූරණය කළ නොහැකි විය</h2><p>Chrome හෝ Edge නවතම Browser එකකින් නැවත උත්සාහ කරන්න. Internet සම්බන්ධතාවයත් පරීක්ෂා කරන්න.</p></main>";
-  console.error(error);
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+if(!window.THREE){$('startScreen').innerHTML='<div class="startcard"><div class="heroicon">⚠️</div><h2>3D පරිසරය පූරණය කළ නොහැක</h2><p>Internet සම්බන්ධතාවය පරීක්ෂා කර Chrome හෝ Edge Browser එකකින් නැවත උත්සාහ කරන්න.</p></div>';return;}
+const T=THREE,canvas=$('world'),scene=new T.Scene();scene.background=new T.Color(0x91a8b3);scene.fog=new T.Fog(0x91a8b3,22,58);
+const camera=new T.PerspectiveCamera(48,innerWidth/innerHeight,.1,120);
+const renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.outputColorSpace=T.SRGBColorSpace;
+const hemi=new T.HemisphereLight(0xe5f4ff,0x40505c,2.0);hemi.userData.keep=true;scene.add(hemi);const sun=new T.DirectionalLight(0xffefcf,2.3);sun.position.set(-8,14,9);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.userData.keep=true;scene.add(sun);
+const raycaster=new T.Raycaster(),pointer=new T.Vector2();let interactables=[],currentMode='hub',currentRoom=null,visited=new Set(),collected=new Set(),hintStage={},dragging=false,orbit={yaw:0,pitch:.2,radius:16,target:new T.Vector3(0,1.2,0)};
+const roomDefs=[
+ {id:'science',name:'විද්‍යාගාරය',tag:'SCIENCE LAB',pos:[-5,0,-2],color:0x347b88,hintTarget:'wheel',hints:['මේසය අසල ඇති කුඩා කොටස් පරීක්ෂා කරන්න.','රෝදයකට සම්බන්ධ වස්තුවක් සොයන්න.','වම් පැත්තේ මේසය මත ඇති රෝද කොටස දිහා බලන්න.'],objects:[
+  {id:'wheel',label:'රෝද කොටස',kind:'wheel',pos:[-2.2,.95,-.8],clue:'wheel',number:1,icon:'🛞',fact:'Robo-01 ට අයත් ඉදිරිපස රෝද කොටසක් මේසය අසල තිබේ.',key:true},
+  {id:'screw',label:'කුඩා Screw එක',kind:'screw',pos:[-.8,.93,-.6],clue:'screw',number:2,icon:'🔩',fact:'කුඩා ලෝහ Screw එකක් රෝද කොටස අසල තිබේ.',key:false},
+  {id:'flask',label:'රසායනික බෝතලය',kind:'flask',pos:[2.1,1.05,-.7],icon:'🧪'}
+ ]},
+ {id:'corridor',name:'ප්‍රධාන කොරිඩෝව',tag:'MAIN CORRIDOR',pos:[0,0,-2],color:0x8a7350,hintTarget:'tracks',hints:['බිම දිගේ ඇති සලකුණු බලන්න.','සලකුණු ගමන් කරන දිශාව හඳුනාගන්න.','දකුණු පැත්තේ Workshop දොර දෙසට යන රෝද සලකුණු පරීක්ෂා කරන්න.'],objects:[
+  {id:'tracks',label:'රෝද සලකුණු',kind:'tracks',pos:[0,.13,-1.1],clue:'tracks',number:3,icon:'🛞',fact:'බිම ඇති රෝද සලකුණු විද්‍යාගාරයෙන් Workshop එක දෙසට දිව යයි.',key:true},
+  {id:'notice',label:'දැනුම් පුවරුව',kind:'board',pos:[-2.5,1.55,-2.7],icon:'📋'},
+  {id:'bag',label:'පාසල් බෑගය',kind:'bag',pos:[2.35,.55,-.8],icon:'🎒'}
+ ]},
+ {id:'computer',name:'පරිගණක කාමරය',tag:'COMPUTER LAB',pos:[5,0,-2],color:0x456da1,hintTarget:'monitor',hints:['පරිගණක මේසය මත ඇති තිරය බලන්න.','අවසන් වරට පද්ධතියේ සිදු වූ ක්‍රියාව පරීක්ෂා කරන්න.','මැද මේසයේ Monitor එක Click කරන්න.'],objects:[
+  {id:'monitor',label:'Computer Log',kind:'monitor',pos:[-.4,1.25,-1.1],clue:'log',number:4,icon:'💻',fact:'3:16 PM දී Robo-01 පාලක පුවරුවේ Service Mode සක්‍රීය වී ඇත.',key:false},
+  {id:'camera',label:'CCTV Monitor',kind:'cctv',pos:[2,1.55,-2.2],clue:'cctv',number:5,icon:'📹',fact:'CCTV සටහනේ 3:18 PM පමණ Workshop දොර විවෘත වන බව පෙනේ.',key:false},
+  {id:'keyboard',label:'Keyboard එක',kind:'keyboard',pos:[-1.9,.9,-.8],icon:'⌨️'}
+ ]},
+ {id:'library',name:'පාසල් පුස්තකාලය',tag:'SCHOOL LIBRARY',pos:[-2.7,0,3],color:0x7c5a9a,hintTarget:'manual',hints:['කියවීමේ මේසය අසල බලන්න.','Robotics ගැන පොතක් හෝ සටහනක් සොයන්න.','මේසය මත විවෘත කර ඇති Robotics පොත පරීක්ෂා කරන්න.'],objects:[
+  {id:'manual',label:'Robotics Repair Manual',kind:'book',pos:[-1.7,1.0,-.7],clue:'manual',number:6,icon:'📘',fact:'Robotics Repair Manual පොත 3:05 PM ට Pasan විසින් ලබාගෙන ඇත.',key:false},
+  {id:'register',label:'පොත් ලේඛනය',kind:'register',pos:[1.6,1.0,-.8],icon:'📒'},
+  {id:'plant',label:'මල් පැළය',kind:'plant',pos:[2.5,.6,-2.4],icon:'🪴'}
+ ]},
+ {id:'workshop',name:'අලුත්වැඩියා වැඩමුළුව',tag:'WORKSHOP',pos:[2.7,0,3],color:0x9a7445,hintTarget:'cover',hints:['වැඩ මේසය සහ එයට අසල ඇති දේ පරීක්ෂා කරන්න.','වසා ඇති ආවරණයක් යට යමක් තිබිය හැකියි.','වැඩ මේසය අසල ඇති ආවරණය සහ සටහන දෙකම Click කරන්න.'],objects:[
+  {id:'note',label:'අලුත්වැඩියා සටහන',kind:'note',pos:[-1.7,1.08,-.9],clue:'repair',number:7,icon:'📝',fact:'“Robo-01 අලුත්වැඩියා කටයුතු” යනුවෙන් සඳහන් සටහනක් හමු විය. එහි Pasan යන නමද ඇත.',key:true},
+  {id:'cover',label:'වසා ඇති ආවරණය',kind:'cover',pos:[1.2,.7,-.6],clue:'robot',number:8,icon:'🤖',fact:'Workshop එකේ ආවරණයක් යටින් Robo-01 හමු විය.',key:true},
+  {id:'spanner',label:'Spanner එක',kind:'spanner',pos:[-.1,.93,-1.9],icon:'🔧'}
+ ]}
+];
+const allClues=()=>roomDefs.flatMap(r=>r.objects.filter(o=>o.clue)).sort((a,b)=>a.number-b.number);
+function mat(color,rough=.72,metal=0){return new T.MeshStandardMaterial({color,roughness:rough,metalness:metal});}
+function box(parent,w,h,d,color,x,y,z,opts={}){const m=new T.Mesh(new T.BoxGeometry(w,h,d),mat(color,opts.rough??.72,opts.metal??0));m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
+function cyl(parent,rt,rb,h,color,x,y,z,seg=18){const m=new T.Mesh(new T.CylinderGeometry(rt,rb,h,seg),mat(color));m.position.set(x,y,z);m.castShadow=true;parent.add(m);return m;}
+function sphere(parent,r,color,x,y,z){const m=new T.Mesh(new T.SphereGeometry(r,20,14),mat(color));m.position.set(x,y,z);m.castShadow=true;parent.add(m);return m;}
+function clearScene(){for(const c of [...scene.children]){if(c.userData.keep)continue;scene.remove(c);}interactables=[];scene.background=new T.Color(currentMode==='hub'?0x91a8b3:0x697c85);scene.fog=new T.Fog(currentMode==='hub'?0x91a8b3:0x697c85,22,58);}
+function addGround(w=20,d=14,color=0x71828a){const m=box(scene,w,.28,d,color,0,-.16,0);m.receiveShadow=true;}
+function textTexture(text,bg='#123047',fg='#f1fbff'){const c=document.createElement('canvas');c.width=512;c.height=128;const x=c.getContext('2d');x.fillStyle=bg;x.fillRect(0,0,512,128);x.strokeStyle='#b1e9ee';x.lineWidth=6;x.strokeRect(4,4,504,120);x.fillStyle=fg;x.font='bold 38px system-ui, sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(text,256,65);const t=new T.CanvasTexture(c);t.colorSpace=T.SRGBColorSpace;return t;}
+function addSign(parent,text,x,y,z,w=2.2){const m=new T.Mesh(new T.PlaneGeometry(w,.56),new T.MeshBasicMaterial({map:textTexture(text),transparent:false,side:T.DoubleSide}));m.position.set(x,y,z);parent.add(m);return m;}
+function addTarget(group,action){group.userData.action=action;group.traverse(o=>{if(o.isMesh)o.userData.action=action});interactables.push(group);return group;}
+function makeDoor(parent,room){const g=new T.Group();g.position.set(room.pos[0],0,room.pos[2]);parent.add(g);box(g,2.25,3.25,.28,0x26394a,0,1.6,0);box(g,1.85,2.8,.16,room.color,0,1.52,.19);box(g,.17,.18,.08,0xd8b76c,.68,1.45,.31);addSign(g,room.name,0,3.55,.02,2.55);const glow=new T.Mesh(new T.BoxGeometry(2.35,3.34,.06),new T.MeshBasicMaterial({color:0x68d9e8,transparent:true,opacity:.17}));glow.position.set(0,1.6,-.17);g.add(glow);addTarget(g,'room:'+room.id);return g;}
+function buildHub(){currentMode='hub';currentRoom=null;clearScene();addGround(19,15,0x75838a);
+ // floor markings / school courtyard
+ for(let i=-8;i<=8;i+=2){const line=box(scene,.025,.012,14,0x9fb0ad,i,.006,0);line.material.roughness=1;}
+ box(scene,19,.24,.35,0x4f6571,0,.02,-7.1);box(scene,19,.24,.35,0x4f6571,0,.02,7.1);
+ const wallMat=0x9cabb0;box(scene,19,4,.35,wallMat,0,2,-7.4);box(scene,.35,4,15,0x899ca4,-9.5,2,0);box(scene,.35,4,15,0x899ca4,9.5,2,0);
+ box(scene,2.7,2.15,.25,0x657b88,0,1.05,-7.1);addSign(scene,'SCHOOL INVESTIGATION',0,2.65,-6.88,3.8);
+ // two rows of room portals. Camera sees all five; each is a clickable 3D door.
+ roomDefs.forEach(r=>makeDoor(scene,r));
+ const lamp=cyl(scene,.09,.09,5,0xffe2a1,0,4.5,-2);lamp.rotation.z=Math.PI/2;const bulb=sphere(scene,.25,0xfff2be,0,4.35,-2);bulb.material.emissive=new T.Color(0x887744);bulb.material.emissiveIntensity=.5;
+ orbit={yaw:0,pitch:.24,radius:20,target:new T.Vector3(0,1.2,0)};updateCamera();
+ $('modeLabel').textContent='SCHOOL INVESTIGATION';$('placeName').textContent='පාසලේ පරිශ්‍රය';$('placeSub').textContent='කාමරයක දොර Click කරන්න';$('backBtn').disabled=true;$('hintBtn').disabled=true;updateClueList();
+}
+function createTable(parent,x,z,w=2.7,d=1.1){const g=new T.Group();g.position.set(x,0,z);parent.add(g);box(g,w,.16,d,0x986b45,0,.88,0);for(const dx of [-w*.42,w*.42])for(const dz of [-d*.37,d*.37])box(g,.12,.85,.12,0x604936,dx,.4,dz);return g;}
+function makeWheel(parent,x,y,z){const g=new T.Group();g.position.set(x,y,z);parent.add(g);const tor=new T.Mesh(new T.TorusGeometry(.42,.115,12,28),mat(0x273944,.4,.45));tor.rotation.y=Math.PI/2;g.add(tor);cyl(g,.12,.12,.26,0x96acb7,0,0,0,16).rotation.z=Math.PI/2;return g;}
+function makeMonitor(parent,x,y,z,screenText='SYSTEM READY'){const g=new T.Group();g.position.set(x,y,z);parent.add(g);box(g,1.05,.74,.16,0x27384a,0,.38,0);const s=new T.Mesh(new T.PlaneGeometry(.88,.55),new T.MeshBasicMaterial({map:textTexture(screenText,'#071a27','#a2f7d2')}));s.position.set(0,.39,.09);g.add(s);box(g,.13,.38,.13,0x657e8e,0,-.13,0);box(g,.7,.09,.45,0x405669,0,-.34,.04);return g;}
+function addRoomWalls(){addGround(10.6,9.2,0x737d7d);box(scene,10.6,4.8,.32,0x9ca9a5,0,2.25,-4.6);box(scene,.32,4.8,9.2,0x8e9b99,-5.3,2.25,0);box(scene,.32,4.8,9.2,0x8e9b99,5.3,2.25,0);box(scene,10.6,.24,.32,0x354e57,0,4.7,-4.6);box(scene,.32,.24,9.2,0x354e57,-5.3,4.7,0);box(scene,.32,.24,9.2,0x354e57,5.3,4.7,0);
+ // windows and ceiling light
+ for(let x of [-3.3,0,3.3]){box(scene,1.15,1.0,.08,0x3e6477,x,3.0,-4.4);box(scene,1.02,.86,.03,0x9bd2d9,x,3.0,-4.34);box(scene,.045,.92,.04,0x476b7a,x,3,-4.31);}
+ box(scene,2.4,.11,.7,0xfff0c8,0,4.55,-.3);const light=new T.PointLight(0xffedc8,55,16);light.position.set(0,3.9,.2);scene.add(light);
+}
+function addBook(parent,x,y,z){const g=new T.Group();g.position.set(x,y,z);parent.add(g);box(g,.72,.12,.9,0x294f72,0,0,0);box(g,.68,.025,.82,0xe3d5ad,0,.073,0);box(g,.05,.025,.82,0xa74f43,-.29,.09,0);return g;}
+function addObjectModel(parent,o){const [x,y,z]=o.pos,g=new T.Group();g.position.set(x,y,z);parent.add(g);
+ switch(o.kind){
+  case 'wheel':makeWheel(g,0,0,0);cyl(g,.12,.12,.3,0x9cabb4,0,.1,0);break;
+  case 'screw':cyl(g,.07,.07,.5,0xc8d2d5,0,0,0,12);cyl(g,.16,.16,.06,0x71828c,0,.25,0,12);break;
+  case 'flask':cyl(g,.2,.24,.5,0x56b9bb,0,.25,0);cyl(g,.08,.08,.2,0x446675,0,.62,0);break;
+  case 'tracks':for(let n=0;n<4;n++){const mark=box(g,.13,.015,.7,0x253a3e,n*.38-.55,0,n*.46-.7);mark.rotation.y=-.23;}break;
+  case 'board':box(g,1.5,1.0,.12,0x5d4635,0,0,0);box(g,1.3,.8,.035,0x345c60,0,0,.08);for(let n=0;n<3;n++)box(g,.5,.045,.04,0xe8dba7,-.25,.22-n*.2,.11);break;
+  case 'bag':box(g,.65,.75,.42,0x5968a0,0,0,0);sphere(g,.12,0xc1a36c,0,.39,.2);break;
+  case 'monitor':makeMonitor(g,0,0,0,'3:16 PM · SERVICE MODE');break;
+  case 'cctv':makeMonitor(g,0,0,0,'CAM 04 · 3:18 PM');break;
+  case 'keyboard':box(g,1.05,.12,.45,0x394858,0,0,0);for(let i=0;i<5;i++)for(let j=0;j<9;j++)box(g,.07,.025,.055,0xb9c7d0,-.42+j*.105,.08,-.16+i*.075);break;
+  case 'book':addBook(g,0,0,0);break;
+  case 'register':box(g,.85,.1,.95,0x485e75,0,0,0);box(g,.77,.03,.87,0xe7dfc9,0,.07,0);break;
+  case 'plant':cyl(g,.32,.25,.52,0xa66d4a,0,0,0);for(let a=0;a<5;a++){const leaf=sphere(g,.18,0x467a58,Math.cos(a*1.25)*.25,.55+Math.sin(a)*.12,Math.sin(a*1.25)*.2);leaf.scale.set(.65,1.5,.7);leaf.rotation.z=(a-2)*.3;}break;
+  case 'note':box(g,.75,.045,.9,0xe8dfc9,0,0,0);for(let i=0;i<4;i++)box(g,.5,.014,.018,0x5b6874,0,.035,-.28+i*.16);break;
+  case 'cover':{const cloth=new T.Mesh(new T.BoxGeometry(1.6,.65,1.1),new T.MeshStandardMaterial({color:0x577b8a,roughness:.95}));cloth.position.set(0,.2,0);cloth.castShadow=true;g.add(cloth);const robot=sphere(g,.34,0xd3aa5a,0,-.05,0);robot.visible=false;g.userData.reveal=robot;break;}
+  case 'spanner':{const shaft=box(g,.75,.09,.13,0xb3c0c6,0,0,0,{metal:.65});shaft.rotation.z=-.35;cyl(g,.16,.16,.11,0xc1cbd0,-.38,.18,0,12).rotation.x=Math.PI/2;break;}
  }
+ const hit=new T.Mesh(new T.SphereGeometry(o.kind==='tracks'?.65:.62,10,8),new T.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false,colorWrite:false}));hit.position.set(0,o.kind==='tracks'?.08:.25,0);g.add(hit);hit.userData.action='object:'+o.id;hit.userData.parentRoom=o.roomId;interactables.push(hit);
+ g.userData.objectDef=o;return g;
+}
+function decorateRoom(room){const r=room.id;
+ if(r==='science'){
+  createTable(scene,-1.25,-.9,3.6,1.35);createTable(scene,2.6,-2.2,1.6,1.0);box(scene,2.6,1.6,.42,0x60717b,3, .8,-4.1);for(let i=0;i<3;i++)cyl(scene,.08,.08,.8,0xa8c6c7,2.2+i*.5,1.2,-3.8,12);
+ }
+ if(r==='corridor'){
+  box(scene,1.6,2.3,.18,0x344a59,0,1.2,-4.35);box(scene,1.35,1.95,.04,0x49717b,0,1.2,-4.22);createTable(scene,-3.3,-2,1.1,.9);box(scene,.5,.8,.5,0x70808a,3,.4,-2.1);
+ }
+ if(r==='computer'){
+  for(let x of [-2.6,0,2.6]){createTable(scene,x,-1.15,2.0,1.0);}
+  makeMonitor(scene,-2.6,1.1,-1.0,'READY');makeMonitor(scene,0,1.1,-1.0,'SERVICE LOG');makeMonitor(scene,2.6,1.1,-1.0,'CCTV');
+ }
+ if(r==='library'){
+  for(let x of [-3.9,3.9]){box(scene,1.15,2.4,.45,0x76563c,x,1.2,-3.9);for(let j=0;j<3;j++){box(scene,1.08,.08,.5,0x3f5060,x, .5+j*.65,-3.6);for(let b=0;b<5;b++)box(scene,.13,.45,.22,[0x9b5149,0x527a8a,0x7e699c,0x9c844d][b%4],x-.42+b*.19,.28+j*.65,-3.59);}}
+  createTable(scene,-1.4,-.8,2.5,1.2);
+ }
+ if(r==='workshop'){
+  createTable(scene,-1.4,-1.0,3.0,1.25);createTable(scene,2.6,-2.3,1.8,1.0);box(scene,1.5,2.5,.3,0x4a5661,3.7,1.2,-4.05);for(let i=0;i<3;i++)box(scene,.3,.12,.35,0xb7c2c7,3.2+i*.35,2.2,-3.8);
+ }
+}
+function addRoomObject(room,o){o.roomId=room.id;const g=addObjectModel(scene,o);return g;}
+function enterRoom(id){const room=roomDefs.find(r=>r.id===id);if(!room)return;currentMode='room';currentRoom=room;visited.add(room.id);clearScene();addRoomWalls();decorateRoom(room);room.objects.forEach(o=>addRoomObject(room,o));orbit={yaw:0,pitch:.12,radius:11.8,target:new T.Vector3(0,1.25,-.3)};updateCamera();$('modeLabel').textContent=room.tag;$('placeName').textContent=room.name;$('placeSub').textContent='වස්තු Click කරලා හෝඩුවාවන් සොයන්න';$('backBtn').disabled=false;$('hintBtn').disabled=false;$('hintBubble').classList.add('hidden');updateClueList();}
+function updateCamera(){const p=orbit.pitch,y=orbit.yaw,r=orbit.radius;camera.position.set(orbit.target.x+Math.sin(y)*Math.cos(p)*r,orbit.target.y+Math.sin(p)*r,orbit.target.z+Math.cos(y)*Math.cos(p)*r);camera.lookAt(orbit.target);}
+function onResize(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.setSize(innerWidth,innerHeight);}
+function ndcFromEvent(e){const r=canvas.getBoundingClientRect();pointer.x=((e.clientX-r.left)/r.width)*2-1;pointer.y=-((e.clientY-r.top)/r.height)*2+1;}
+function pick(e){ndcFromEvent(e);raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects(interactables,true);if(!hits.length)return;let obj=hits[0].object;let action=obj.userData.action;while(!action&&obj.parent){obj=obj.parent;action=obj.userData.action;}if(!action)return;if(action.startsWith('room:')){enterRoom(action.slice(5));return;}if(action.startsWith('object:')){const id=action.slice(7);const o=currentRoom?.objects.find(q=>q.id===id);if(o)inspectObject(o);}}
+let down={x:0,y:0,moved:false};canvas.addEventListener('pointerdown',e=>{dragging=true;down={x:e.clientX,y:e.clientY,moved:false};canvas.setPointerCapture?.(e.pointerId);});canvas.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;if(Math.abs(dx)+Math.abs(dy)>4)down.moved=true;if(down.moved){orbit.yaw-=dx*.006;orbit.pitch=Math.max(-.05,Math.min(.82,orbit.pitch+dy*.004));updateCamera();}down.x=e.clientX;down.y=e.clientY;});canvas.addEventListener('pointerup',e=>{dragging=false;if(!down.moved)pick(e);});canvas.addEventListener('pointercancel',()=>dragging=false);canvas.addEventListener('wheel',e=>{orbit.radius=Math.max(7,Math.min(25,orbit.radius+e.deltaY*.012));updateCamera();},{passive:true});
+function inspectObject(o){
+ if(!o.clue){showToast('මෙය Clue එකක් නොවේ. වෙනත් වස්තුවක් පරීක්ෂා කරන්න.');return;}
+ if(collected.has(o.clue)){showToast('මෙම Clue එක දැනටමත් සොයාගෙන තිබෙනවා.');return;}
+ collected.add(o.clue);updateClueList();
+ const number=String(o.number).padStart(2,'0');
+ showToast('🔎 Clue '+number+' සොයාගත්තා! Clue List එකේ '+number+' ස්ථානය බලන්න.');
+ if(o.kind==='cover'&&currentRoom?.id==='workshop'){
+  const group=scene.children.find(x=>x.userData.objectDef?.id==='cover');
+  if(group?.userData.reveal)group.userData.reveal.visible=true;
+ }
+ if(collected.size===allClues().length){showToast('සියලුම Clues සොයාගෙන ඇත. දැන් ඒවා සසඳා ඔබේම නිගමනයකට එන්න.');}
+}
+function updateClueList(){
+ const list=$('clueList');list.innerHTML='';
+ allClues().forEach(clue=>{
+  const found=collected.has(clue.clue);
+  const item=document.createElement('div');item.className=found?'clue-item':'clue-item pending';
+  const label=document.createElement('b');label.textContent='CLUE '+String(clue.number).padStart(2,'0');
+  const detail=document.createElement('span');detail.textContent=found?clue.fact:'තවම සොයාගෙන නැහැ';
+  item.append(label,detail);list.appendChild(item);
+ });
+}
+function showToast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');clearTimeout(showToast.t);showToast.t=setTimeout(()=>$('toast').classList.add('hidden'),2600);}
+function showHint(){if(!currentRoom)return;const n=hintStage[currentRoom.id]||0;const hints=currentRoom.hints;const msg=hints[Math.min(n,hints.length-1)];hintStage[currentRoom.id]=Math.min(n+1,hints.length-1);$('hintBubble').textContent='💡 '+msg;$('hintBubble').classList.remove('hidden');clearTimeout(showHint.t);showHint.t=setTimeout(()=>$('hintBubble').classList.add('hidden'),6500);}
+$('startBtn').onclick=()=>{$('startScreen').classList.add('hidden');buildHub();updateClueList();};$('hintBtn').onclick=showHint;$('backBtn').onclick=()=>{buildHub();$('hintBubble').classList.add('hidden');};
+canvas.addEventListener('pointermove',e=>{if(dragging)return;ndcFromEvent(e);raycaster.setFromCamera(pointer,camera);canvas.style.cursor=raycaster.intersectObjects(interactables,true).length?'pointer':'grab';});
+function animate(){requestAnimationFrame(animate);renderer.render(scene,camera);}addEventListener('resize',onResize);animate();
 })();
 </script>
 </body>
